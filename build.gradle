@@ -1,5 +1,6 @@
 buildscript {
     repositories {
+       	mavenLocal()
         mavenCentral()
         eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
     }
@@ -30,10 +31,13 @@ projects {
 }
 
 allprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
     repositories {
+       	mavenLocal()
         mavenCentral()
         jcenter()
         eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
@@ -42,6 +46,22 @@ allprojects {
     dependencies {
         testCompile "junit:junit:4.12"
     }
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                repository(url: deployUrl)
+                pom.project {
+                    licenses {
+                        license {
+                            name 'The Apache Software License, Version 2.0'
+                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                            distribution 'repo'
+                        }
+                    }
+                }
+            }
+        }
+    }    
 
 }
 
