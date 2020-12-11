@@ -1,5 +1,6 @@
 buildscript {
     repositories {
+    	mavenLocal()
         mavenCentral()
 
         maven {
@@ -48,6 +49,7 @@ subprojects {
     }
 
     repositories {
+    	mavenLocal()
         maven {
             url "http://repo.spring.io/milestone/"
         }
@@ -84,9 +86,9 @@ task aggregatedTestReport(type: TestReport) {
   reportOn subprojects*.test
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = "3.5"
-}
+//task wrapper(type: Wrapper) {
+//    gradleVersion = "3.5"
+//}
 
 gradle.projectsEvaluated {
     task aggregateJavaDocs(type: Javadoc) {
